@@ -3,6 +3,8 @@ var santaFloors = "()()(()()()(()()((()((()))((()((((()()((((()))()((((())((((((
 var checkFloors = function(input) {
   var obj = {};
   var floorCount = 0;
+  var basementCount = 0;
+  var basement = 0;
 
   for(var i = 0; i < input.length; i++) {
     obj[input[i]] = obj[input[i]] + 1 || 1;
@@ -16,8 +18,23 @@ var checkFloors = function(input) {
       floorCount -= obj[key];
     }
   }
+
+  for(var i = 0; i < input.length; i++) {
+    if(basementCount === -1 && basementCheck) {
+      return basement
+    }
+    if(input[i] === "(") {
+      basementCount += 1;
+      basement += 1;
+    }
+    if(input[i] === ")") {
+      basementCount -= 1;
+      basement += 1;
+    }
+  }
+
   return floorCount;
 };
 
 console.log(checkFloors(santaFloors));
-//output is 280
+//output is 280 //first basement is 1797
